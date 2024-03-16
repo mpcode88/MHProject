@@ -78,7 +78,25 @@ let itemRecipes = {
 document.getElementById('show-items').addEventListener('click', () => {
     document.getElementById('crafting-area').style.display = 'block';
     populateDropdowns();
+    populateRecipes(); // Call this function to display recipes
 });
+
+function populateRecipes() {
+    const recipeList = document.getElementById('recipe-list');
+    recipeList.innerHTML = ''; // Clear existing recipes
+
+    for (let recipe in itemRecipes) {
+        if (itemRecipes.hasOwnProperty(recipe)) {
+            const item = itemRecipes[recipe];
+            const recipeElement = document.createElement('li');
+            recipeElement.textContent = `${recipe} = ${item.result} (x${item.quantity})`;
+            recipeList.appendChild(recipeElement);
+        }
+    }
+
+    document.getElementById('recipe-display').style.display = 'block'; // Show the recipes
+}
+
 
 // Function to populate the dropdowns with items
 function populateDropdowns() {
