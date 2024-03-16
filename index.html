@@ -8,24 +8,49 @@
 </head>
 <body>
     <h1>Monster Hunter Crafting App!</h1>
-<div id="inventory-display" style="display: none;">
-    <h2>Item Inventory</h2>
-    <ul id="inventory-list"></ul>
-</div>
+
+    <div id="inventory-display" style="display: none;">
+        <h2>Item Inventory</h2>
+        <ul id="inventory-list"></ul>
+    </div>
     <button id="show-items">Items</button>
     <button id="show-inventory">Show Inventory</button>
+    <button id="show-weapons">Weapons</button>
+    <button id="show-weapons-inventory">Show Weapons Inventory</button>
     <div id="crafting-area" style="display: none;">
         <select id="item1"></select>
         <select id="item2"></select>
         <button id="craft">Craft</button>
     </div>
-<div id="recipe-display" style="display: none;">
-    <h2>Crafting Recipes</h2>
-    <ul id="recipe-list"></ul>
-</div>
-
+    <div id="recipe-display" style="display: none;">
+        <h2>Crafting Recipes</h2>
+        <ul id="recipe-list"></ul>
+    </div>    
     <p id="message"></p>
 
+    <div id="weapons-inventory-display" style="display: none;">
+        <h2>Crafted Weapons</h2>
+        <ul id="weapons-inventory-list"></ul>
+    </div>
+    <div id="weapons-crafting-area" style="display: none;">
+        <select id="weapon-select">
+            <option value="">Choose a weapon</option>
+        </select>
+        <select id="material1"></select>
+        <select id="material2"></select>
+        <select id="material3" style="display: none;"></select>
+        <select id="material4" style="display: none;"></select>
+        <button id="craft-weapon">Craft Weapon</button>
+    </div>
+    <p id="weapon-message"></p>
+    <div id="weapon-recipe-display" style="display: none;">
+        <h2>Weapon Crafting Recipes</h2>
+        <ul id="weapon-recipe-list"></ul>
+    </div>
+    
+    
+
     <script src="items.js"></script>
+    <script src="weapons.js"></script>
 </body>
 </html>

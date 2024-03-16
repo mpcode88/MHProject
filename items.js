@@ -74,11 +74,23 @@ let itemRecipes = {
     "Immunizer + Adamant Seed": { result: "Adamant Pill", quantity: 1 },
 };
 
-// Event listener for showing the crafting area and populating dropdowns
+// Event listener for showing the item crafting area, populating dropdowns, and displaying recipes
 document.getElementById('show-items').addEventListener('click', () => {
-    document.getElementById('crafting-area').style.display = 'block';
-    populateDropdowns();
-    populateRecipes(); // Call this function to display recipes
+    const itemArea = document.getElementById('crafting-area');
+    const weaponArea = document.getElementById('weapons-crafting-area');
+    const recipeDisplay = document.getElementById('recipe-display');
+    const weaponRecipeDisplay = document.getElementById('weapon-recipe-display');
+    
+    if (itemArea.style.display === 'none') {
+        itemArea.style.display = 'block';
+        weaponArea.style.display = 'none';
+        recipeDisplay.style.display = 'block'; // Show the item recipes
+        weaponRecipeDisplay.style.display = 'none'; // Hide the weapon recipes
+        populateDropdowns();
+        populateRecipes();
+    } else {
+        itemArea.style.display = 'none';
+    }
 });
 
 function populateRecipes() {
