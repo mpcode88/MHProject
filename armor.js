@@ -1,4 +1,6 @@
 
+let craftedArmor = [];
+
 let armorMaterials = [
     { name: "Glavenus Cortex", quantity: 50 },
     { name: "Glavenus Hardfang", quantity: 50 },
