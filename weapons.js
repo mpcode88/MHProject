@@ -1,6 +1,7 @@
-
+// Arrays to hold weapon materials and crafted weapons information
 let craftedWeapons = [];
 
+// Each object in this array represents a material with its name and quantity
 let weaponMaterials = [
     { name: "Glavenus Hellshell", quantity: 50 },
     { name: "Glavenus Tailedge", quantity: 50 },
@@ -18,6 +19,7 @@ let weaponMaterials = [
     { name: "Fulgur Anjanath Mantle", quantity: 50 }
 ];
 
+// This array holds objects representing weapons and the materials required to craft them
 let weapons = [
     {
         name: "Glavenus Blaze II",
@@ -60,11 +62,13 @@ let weapons = [
     }
 ];
 
+// Event listener for changes in the weapon selection dropdown
 document.getElementById('weapon-select').addEventListener('change', (event) => {
     const selectedWeaponName = event.target.value;
     adjustMaterialDropdowns(selectedWeaponName);
 });
 
+// Event listener for showing the weapon crafting area
 document.getElementById('show-weapons').addEventListener('click', () => {
     document.getElementById('armor-crafting-message').textContent = '';
     document.getElementById('armor-recipe-display').style.display = 'none';
@@ -80,13 +84,14 @@ document.getElementById('show-weapons').addEventListener('click', () => {
         weaponRecipeDisplay.style.display = 'block';
         populateMaterialDropdowns();
         populateWeaponDropdown();
-        populateWeaponRecipes(); // Populate and show weapon recipes
+        populateWeaponRecipes();
     } else {
         weaponArea.style.display = 'none';
         weaponRecipeDisplay.style.display = 'none';
     }
 });
 
+// Event listener for showing the weapons inventory
 document.getElementById('show-weapons-inventory').addEventListener('click', () => {
     const inventoryDisplay = document.getElementById('weapons-inventory-display');
     const button = document.getElementById('show-weapons-inventory');
@@ -95,15 +100,16 @@ document.getElementById('show-weapons-inventory').addEventListener('click', () =
         inventoryDisplay.style.display = 'none';
         button.textContent = 'Show Weapons Inventory';
     } else {
-        updateWeaponsInventoryDisplay(); // This function should update the inventory list
+        updateWeaponsInventoryDisplay();
         inventoryDisplay.style.display = 'block';
         button.textContent = 'Hide Weapons Inventory';
     }
 });
 
+// Populates the weapon selection dropdown with available weapons
 function populateWeaponDropdown() {
     const weaponSelect = document.getElementById('weapon-select');
-    weaponSelect.innerHTML = '<option value="">Choose a weapon</option>'; // Reset dropdown
+    weaponSelect.innerHTML = '<option value="">Choose a weapon</option>';
 
     weapons.forEach(weapon => {
         let option = document.createElement('option');
@@ -113,33 +119,35 @@ function populateWeaponDropdown() {
     });
 }
 
+// Updates the display of the weapons inventory list
 function updateWeaponsInventoryDisplay() {
     const inventoryList = document.getElementById('weapons-inventory-list');
-    inventoryList.innerHTML = ''; // Clear existing list items
+    inventoryList.innerHTML = '';
 
     craftedWeapons.forEach(weapon => {
         const listItem = document.createElement('li');
-        listItem.textContent = weapon.name; // Assuming craftedWeapons stores objects with a name property
+        listItem.textContent = weapon.name;
         inventoryList.appendChild(listItem);
     });
 }
 
+// Populates material dropdowns with available materials
 function populateMaterialDropdowns() {
     const materialDropdowns = [document.getElementById('material1'), document.getElementById('material2'), document.getElementById('material3'), document.getElementById('material4')];
 
     materialDropdowns.forEach(dropdown => {
-        dropdown.innerHTML = '<option value="">Choose a material</option>'; // Default option
+        dropdown.innerHTML = '<option value="">Choose a material</option>';
         weaponMaterials.forEach(material => {
             dropdown.innerHTML += `<option value="${material.name}">${material.name}</option>`;
         });
     });
 }
 
+// Adjusts which material dropdowns are visible based on the selected weapon's requirements
 function adjustMaterialDropdowns(weaponName) {
     const weapon = weapons.find(w => w.name === weaponName);
     if (!weapon) return;
 
-    // Show/hide material dropdowns based on the number of required materials
     [document.getElementById('material1'), document.getElementById('material2'), document.getElementById('material3'), document.getElementById('material4')].forEach((dropdown, index) => {
         if (index < weapon.materials.length) {
             dropdown.style.display = 'block';
@@ -149,6 +157,7 @@ function adjustMaterialDropdowns(weaponName) {
     });
 }
 
+// Event listener for the craft weapon button
 document.getElementById('craft-weapon').addEventListener('click', () => {
     const selectedWeaponName = document.getElementById('weapon-select').value;
 
@@ -171,25 +180,26 @@ document.getElementById('craft-weapon').addEventListener('click', () => {
             }
         });
     
-        craftedWeapons.push({ name: weapon.name });  // Add the weapon to the craftedWeapons array
+        craftedWeapons.push({ name: weapon.name });
         document.getElementById('weapon-message').textContent = `Crafted ${weapon.name}!`;
-        updateWeaponsInventoryDisplay(); // Make sure the UI reflects the new state of the crafted weapons
+        updateWeaponsInventoryDisplay();
     } else {
         document.getElementById('weapon-message').textContent = "Cannot craft the weapon. Check the materials.";
     }
     
-    populateMaterialDropdowns(); // Refresh dropdowns after the crafting attempt
-}); // This closes the event listener for 'craft-weapon'
+    populateMaterialDropdowns();
+});
 
-// This function should be outside and at the same level as your other function definitions
+// Checks if there are enough materials available to craft the selected weapon
 function hasEnoughMaterials(materialName, requiredQuantity) {
     const material = weaponMaterials.find(m => m.name === materialName);
     return material && material.quantity >= requiredQuantity;
 }
 
+// Populates the weapon recipes list showing what materials are needed for each weapon
 function populateWeaponRecipes() {
     const recipeList = document.getElementById('weapon-recipe-list');
-    recipeList.innerHTML = ''; // Clear existing recipes
+    recipeList.innerHTML = '';
 
     weapons.forEach(weapon => {
         const recipeElement = document.createElement('li');

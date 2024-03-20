@@ -1,6 +1,7 @@
-
+// Array to store crafted armor sets
 let craftedArmor = [];
 
+// Array to store available materials for crafting armor
 let armorMaterials = [
     { name: "Glavenus Cortex", quantity: 50 },
     { name: "Glavenus Hardfang", quantity: 50 },
@@ -31,6 +32,7 @@ let armorMaterials = [
     { name: "Fulgur Anjanath Mantle", quantity: 50 },
 ];
 
+// Array to store armor sets and their required materials for crafting
 let armor = [
     { 
         name: "Glavenus Armor Set", 
@@ -91,29 +93,31 @@ let armor = [
     },
 ];
 
+// Event listener for the "Armor Smithy" button to toggle the display of the armor crafting area
 document.getElementById('show-armor-smithy').addEventListener('click', () => {
     const armorSmithyArea = document.getElementById('armor-smithy-area');
     const armorRecipeDisplay = document.getElementById('armor-recipe-display');
 
     if (armorSmithyArea.style.display === 'none') {
         armorSmithyArea.style.display = 'block';
-        armorRecipeDisplay.style.display = 'block'; // Show armor recipes
+        armorRecipeDisplay.style.display = 'block';
         populateArmorSelect();
-        populateArmorRecipes(); // Populate and show armor recipes
+        populateArmorRecipes();
     } else {
         armorSmithyArea.style.display = 'none';
-        armorRecipeDisplay.style.display = 'none'; // Hide armor recipes
+        armorRecipeDisplay.style.display = 'none';
     }
 });
 
-
+// Event listener for the "Show Armor Inventory" button to toggle the display of the armor inventory
 document.getElementById('show-armor-inventory').addEventListener('click', () => {
     const inventoryDisplay = document.getElementById('armor-inventory-display');
     inventoryDisplay.style.display = inventoryDisplay.style.display === 'none' ? 'block' : 'none';
     updateArmorInventoryDisplay();
-    document.getElementById('armor-crafting-message').textContent = ''; // Clear the message
+    document.getElementById('armor-crafting-message').textContent = '';
 });
 
+// Function to populate the armor set selection dropdown
 function populateArmorSelect() {
     const armorSelect = document.getElementById('armor-select');
     armorSelect.innerHTML = '<option value="">Choose an armor set</option>';
@@ -125,6 +129,7 @@ function populateArmorSelect() {
     });
 }
 
+// Function to adjust which material dropdowns are displayed based on the selected armor set
 function adjustArmorMaterialsDropdowns(armorSetName) {
     const armorSet = armor.find(set => set.name === armorSetName);
     if (!armorSet) return;
@@ -140,10 +145,12 @@ function adjustArmorMaterialsDropdowns(armorSetName) {
     }
 }
 
+// Event listener for changing the selected armor set to update material dropdowns
 document.getElementById('armor-select').addEventListener('change', (event) => {
     adjustArmorMaterialsDropdowns(event.target.value);
 });
 
+// Event listener for the "Craft Armor" button to attempt crafting the selected armor set
 document.getElementById('craft-armor').addEventListener('click', () => {
     const selectedArmorSet = armor.find(set => set.name === document.getElementById('armor-select').value);
     if (!selectedArmorSet) {
@@ -165,6 +172,7 @@ document.getElementById('craft-armor').addEventListener('click', () => {
     }
 });
 
+// Function to update the display of the armor inventory
 function updateArmorInventoryDisplay() {
     const inventoryList = document.getElementById('armor-inventory-list');
     inventoryList.innerHTML = '';
@@ -175,6 +183,7 @@ function updateArmorInventoryDisplay() {
     });
 }
 
+// Function to populate a material dropdown
 function populateMaterialDropdown(dropdown, material) {
     dropdown.innerHTML = '<option value="">Choose a material</option>';
     armorMaterials.forEach(mat => {
@@ -185,14 +194,16 @@ function populateMaterialDropdown(dropdown, material) {
     });
 }
 
+// Function to check if enough materials are available for crafting
 function hasEnoughMaterials(materialName, requiredQuantity) {
     const material = armorMaterials.find(m => m.name === materialName);
     return material && material.quantity >= requiredQuantity;
 }
 
+// Function to populate the armor crafting recipes display
 function populateArmorRecipes() {
     const recipeList = document.getElementById('armor-recipe-list');
-    recipeList.innerHTML = ''; // Clear existing recipes
+    recipeList.innerHTML = '';
 
     armor.forEach(set => {
         const recipeElement = document.createElement('li');

@@ -1,3 +1,4 @@
+// Initialize an array to store items and their quantities
 let items = [
     { "name": "Herb", "quantity": 50 },
     { "name": "Potion", "quantity": 50 },
@@ -44,6 +45,7 @@ let items = [
     { "name": "Adamant Pill", "quantity": 50 },
 ];
 
+// Initialize an object to store crafting recipes for items
 let itemRecipes = {
     "Herb": { result: "Potion", quantity: 1 },
     "Potion + Honey": { result: "Mega Potion", quantity: 1 },
@@ -74,7 +76,7 @@ let itemRecipes = {
     "Immunizer + Adamant Seed": { result: "Adamant Pill", quantity: 1 },
 };
 
-// Event listener for showing the item crafting area, populating dropdowns, and displaying recipes
+// Event listener for the "Show Items" button
 document.getElementById('show-items').addEventListener('click', () => {
     document.getElementById('armor-crafting-message').textContent = '';
     document.getElementById('armor-recipe-display').style.display = 'none';
@@ -86,8 +88,8 @@ document.getElementById('show-items').addEventListener('click', () => {
     if (itemArea.style.display === 'none') {
         itemArea.style.display = 'block';
         weaponArea.style.display = 'none';
-        recipeDisplay.style.display = 'block'; // Show the item recipes
-        weaponRecipeDisplay.style.display = 'none'; // Hide the weapon recipes
+        recipeDisplay.style.display = 'block';
+        weaponRecipeDisplay.style.display = 'none';
         populateDropdowns();
         populateRecipes();
     } else {
@@ -95,9 +97,10 @@ document.getElementById('show-items').addEventListener('click', () => {
     }
 });
 
+// Function to populate the list of crafting recipes
 function populateRecipes() {
     const recipeList = document.getElementById('recipe-list');
-    recipeList.innerHTML = ''; // Clear existing recipes
+    recipeList.innerHTML = '';
 
     for (let recipe in itemRecipes) {
         if (itemRecipes.hasOwnProperty(recipe)) {
@@ -108,20 +111,17 @@ function populateRecipes() {
         }
     }
 
-    document.getElementById('recipe-display').style.display = 'block'; // Show the recipes
+    document.getElementById('recipe-display').style.display = 'block';
 }
 
-
-// Function to populate the dropdowns with items
+// Function to populate item selection dropdowns for crafting
 function populateDropdowns() {
     const item1Select = document.getElementById('item1');
     const item2Select = document.getElementById('item2');
 
-    // Clear existing options and add the default "Choose an item" option
     item1Select.innerHTML = '<option value="">Choose an item</option>';
     item2Select.innerHTML = '<option value="">Choose an item</option>';
 
-    // Populate dropdowns with items
     items.forEach(item => {
         const option1 = document.createElement('option');
         option1.value = item.name;
@@ -135,11 +135,11 @@ function populateDropdowns() {
     });
 }
 
+// Event listener for the "Craft" button
 document.getElementById('craft').addEventListener('click', () => {
     const item1 = document.getElementById('item1').value;
     const item2 = document.getElementById('item2').value;
 
-    // Check if the user has selected valid items before crafting
     if (!item1 || !item2) {
         document.getElementById('message').textContent = "Please choose two items to craft.";
         return;
@@ -149,18 +149,17 @@ document.getElementById('craft').addEventListener('click', () => {
     for (let recipe in itemRecipes) {
         if (itemRecipes.hasOwnProperty(recipe)) {
             const ingredients = recipe.split(' + ');
-            // Check if the recipe matches the selected items (for both single and multiple ingredient recipes)
+
             if ((ingredients.length === 1 && item1 === item2 && ingredients.includes(item1)) ||
                 (ingredients.length > 1 && ingredients.includes(item1) && ingredients.includes(item2))) {
                 const resultItem = itemRecipes[recipe].result;
                 const quantity = itemRecipes[recipe].quantity;
 
-                // Update inventory
                 updateInventory(item1, item2, resultItem, quantity);
                 crafted = true;
                 document.getElementById('message').textContent = `Crafted ${quantity} ${resultItem}!`;
-                // updateInventoryDisplay(); // Update and display the inventory after crafting
-                break; // Exit the loop once a matching recipe is found and crafted
+
+                break;
             }
         }
     }
@@ -168,13 +167,12 @@ document.getElementById('craft').addEventListener('click', () => {
     if (!crafted) {
         document.getElementById('message').textContent = "Crafting failed. These items can't be combined.";
     }
-
-    populateDropdowns(); // Refresh dropdowns to reflect updated inventory
+    // Refresh dropdowns to reflect any changes in inventory after crafting
+    populateDropdowns();
 });
 
-// Function to update the inventory
+// Function to update the item inventory after crafting
 function updateInventory(item1, item2, resultItem, quantity) {
-    // Decrease the quantity of used items if they are not the same
     if (item1 !== item2) {
         items.find(item => item.name === item1).quantity -= 1;
         items.find(item => item.name === item2).quantity -= 1;
@@ -182,7 +180,6 @@ function updateInventory(item1, item2, resultItem, quantity) {
         items.find(item => item.name === item1).quantity -= 2;
     }
 
-    // Add or update the crafted item in the inventory
     const existingItem = items.find(item => item.name === resultItem);
     if (existingItem) {
         existingItem.quantity += quantity;
@@ -191,10 +188,10 @@ function updateInventory(item1, item2, resultItem, quantity) {
     }
 }
 
-// Function to update the inventory display
+// Function to update and display the item inventory list in the UI
 function updateInventoryDisplay() {
     const inventoryList = document.getElementById('inventory-list');
-    inventoryList.innerHTML = ''; // Clear the list before updating
+    inventoryList.innerHTML = '';
 
     items.forEach(item => {
         const itemElement = document.createElement('li');
@@ -202,20 +199,19 @@ function updateInventoryDisplay() {
         inventoryList.appendChild(itemElement);
     });
 
-    document.getElementById('inventory-display').style.display = 'block'; // Show the inventory list
+    document.getElementById('inventory-display').style.display = 'block';
 }
 
-// Event listener for the 'Show Inventory' button
+// Event listener for toggling the inventory display
 document.getElementById('show-inventory').addEventListener('click', () => {
     const inventoryDisplay = document.getElementById('inventory-display');
     const button = document.getElementById('show-inventory');
 
-    // Toggle the display of the inventory and update button text based on current state
     if (inventoryDisplay.style.display === 'block') {
         inventoryDisplay.style.display = 'none';
         button.textContent = 'Show Inventory';
     } else {
-        updateInventoryDisplay(); // Make sure the inventory is updated before showing it
+        updateInventoryDisplay();
         inventoryDisplay.style.display = 'block';
         button.textContent = 'Hide Inventory';
     }

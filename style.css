@@ -11,7 +11,7 @@ h1 {
 }
 
 button {
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -22,8 +22,8 @@ button {
 .button-container {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap; /* Allows buttons to wrap onto the next line if there's not enough space */
-    gap: 10px; /* Adds space between buttons */
+    flex-wrap: wrap;
+    gap: 10px;
     width: 100%;
 }
 
@@ -32,7 +32,7 @@ button:hover {
 }
 
 select {
-    width: 15%; /* Adjust the percentage as needed */
+    width: 15%;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
@@ -55,5 +55,5 @@ select {
     margin-top: 20px;
     padding: 10px;
     background-color: #f1f1f1;
-    border-left: 5px solid #2196F3; /* Blue */
+    border-left: 5px solid #2196F3;
 }
