@@ -66,6 +66,8 @@ document.getElementById('weapon-select').addEventListener('change', (event) => {
 });
 
 document.getElementById('show-weapons').addEventListener('click', () => {
+    document.getElementById('armor-crafting-message').textContent = '';
+    document.getElementById('armor-recipe-display').style.display = 'none';
     const weaponArea = document.getElementById('weapons-crafting-area');
     const itemArea = document.getElementById('crafting-area');
     const recipeDisplay = document.getElementById('recipe-display');

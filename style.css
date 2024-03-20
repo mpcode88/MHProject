@@ -19,6 +19,14 @@ button {
     cursor: pointer;
 }
 
+.button-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Allows buttons to wrap onto the next line if there's not enough space */
+    gap: 10px; /* Adds space between buttons */
+    width: 100%;
+}
+
 button:hover {
     background-color: #45a049;
 }

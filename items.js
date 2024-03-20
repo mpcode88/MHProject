@@ -76,6 +76,8 @@ let itemRecipes = {
 
 // Event listener for showing the item crafting area, populating dropdowns, and displaying recipes
 document.getElementById('show-items').addEventListener('click', () => {
+    document.getElementById('armor-crafting-message').textContent = '';
+    document.getElementById('armor-recipe-display').style.display = 'none';
     const itemArea = document.getElementById('crafting-area');
     const weaponArea = document.getElementById('weapons-crafting-area');
     const recipeDisplay = document.getElementById('recipe-display');

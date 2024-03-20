@@ -13,10 +13,16 @@
         <h2>Item Inventory</h2>
         <ul id="inventory-list"></ul>
     </div>
-    <button id="show-items">Items</button>
-    <button id="show-inventory">Show Inventory</button>
-    <button id="show-weapons">Weapons</button>
-    <button id="show-weapons-inventory">Show Weapons Inventory</button>
+
+    <div class = "button-container">
+        <button id="show-items">Item Melder</button>
+        <button id="show-inventory">Item Inventory</button>
+        <button id="show-weapons">Weapon Smithy</button>
+        <button id="show-weapons-inventory">Weapon Inventory</button>
+        <button id="show-armor-smithy">Armor Smithy</button>
+        <button id="show-armor-inventory">Armor Inventory</button>
+    </div>
+
     <div id="crafting-area" style="display: none;">
         <select id="item1"></select>
         <select id="item2"></select>
@@ -47,10 +53,35 @@
         <h2>Weapon Crafting Recipes</h2>
         <ul id="weapon-recipe-list"></ul>
     </div>
-    
+
+    <div id="armor-smithy-area" style="display: none;">
+        <select id="armor-select">
+            <option value="">Choose an armor set</option>
+        </select>
+        <select id="armor-material1" style="display: none;"></select>
+        <select id="armor-material2" style="display: none;"></select>
+        <select id="armor-material3" style="display: none;"></select>
+        <select id="armor-material4" style="display: none;"></select>
+        <select id="armor-material5" style="display: none;"></select>
+        <select id="armor-material6" style="display: none;"></select>
+        <select id="armor-material7" style="display: none;"></select>
+        <button id="craft-armor">Craft</button>
+    </div>
+
+    <div id="armor-inventory-display" style="display: none;">
+        <h2>Armor Inventory</h2>
+        <ul id="armor-inventory-list"></ul>
+    </div>
+    <p id="armor-crafting-message"></p>
+
+    <div id="armor-recipe-display" style="display: none;">
+        <h2>Armor Crafting Recipes</h2>
+        <ul id="armor-recipe-list"></ul>
+    </div>
     
 
     <script src="items.js"></script>
     <script src="weapons.js"></script>
+    <script src="armor.js"></script>
 </body>
 </html>
